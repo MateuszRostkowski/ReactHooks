@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    // Updates document title, using browser API
+    document.title = `Pressed ${count} times.`
+  })
 
   return (
     <div>
