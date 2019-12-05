@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0);
+function useCounter(number) {
+  const [count, setCount] = useState(number);
 
-  useEffect(() => {
-    // Updates document title, using browser API
-    document.title = `Pressed ${count} times.`
-  })
+  return {
+    count,
+    setCount
+  }
+}
+
+function App() {
+  const counter = useCounter(0)
+
+  const counter2 = useCounter(4)
 
   return (
     <div>
-        <p>Pressed {count} times.</p>
-        <button onClick={() => setCount(count + 1)}>Press me</button>
-        <button onClick={() => setCount(0)}>Reset me</button>
+      <p>Pressed { counter.count } times.</p>
+      <button onClick={ () => counter.setCount(counter.count + 1) }>Press me</button>
+      <button onClick={ () => counter.setCount(0) }>Reset me</button>
+      <div>
+        <p>Pressed { counter2.count } times.</p>
+        <button onClick={ () => counter2.setCount(counter2.count + 1) }>Press me</button>
+        <button onClick={ () => counter2.setCount(0) }>Reset me</button>
+      </div>
     </div>
   );
 }
