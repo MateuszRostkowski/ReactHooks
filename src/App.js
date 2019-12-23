@@ -14,16 +14,22 @@ function App() {
 
   const counter2 = useCounter(4)
 
+  useEffect(() => {
+    document.title = `Pressed ${counter.count} times`
+  })
+
   return (
     <div>
       <p>Pressed { counter.count } times.</p>
       <button onClick={ () => counter.setCount(counter.count + 1) }>Press me</button>
       <button onClick={ () => counter.setCount(0) }>Reset me</button>
+      
       <div>
         <p>Pressed { counter2.count } times.</p>
         <button onClick={ () => counter2.setCount(counter2.count + 1) }>Press me</button>
         <button onClick={ () => counter2.setCount(0) }>Reset me</button>
       </div>
+
     </div>
   );
 }
