@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import About from "./components/About";
 import Home from "./components/Home";
@@ -17,6 +17,8 @@ function useCounter(number) {
 function App() {
   const [value, setValue] = useState(1)
 
+  const providerValue = useMemo(() => ({ value, setValue}), [value, setValue])
+
   return (
     <Router>
       <div>
@@ -31,7 +33,7 @@ function App() {
           </ul>
         </nav>
 
-        <UserContext.Provider value={{value, setValue}}>
+        <UserContext.Provider value={providerValue}>
           <Route path="/" exact component={Home} />
           <Route path="/about" exact component={About} />
         </UserContext.Provider>
