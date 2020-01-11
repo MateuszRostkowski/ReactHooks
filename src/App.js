@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import About from "./components/About";
+import Home from "./components/Home";
+import { UserContext } from "./context/UserContext"
 
+// my own Counter Hook
 function useCounter(number) {
   const [count, setCount] = useState(number);
 
@@ -10,27 +15,26 @@ function useCounter(number) {
 }
 
 function App() {
-  const counter = useCounter(0)
-
-  const counter2 = useCounter(4)
-
-  useEffect(() => {
-    document.title = `Pressed ${counter.count} times`
-  })
-
   return (
-    <div>
-      <p>Pressed { counter.count } times.</p>
-      <button onClick={ () => counter.setCount(counter.count + 1) }>Press me</button>
-      <button onClick={ () => counter.setCount(0) }>Reset me</button>
-      
+    <Router>
       <div>
-        <p>Pressed { counter2.count } times.</p>
-        <button onClick={ () => counter2.setCount(counter2.count + 1) }>Press me</button>
-        <button onClick={ () => counter2.setCount(0) }>Reset me</button>
-      </div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about/">About</Link>
+            </li>
+          </ul>
+        </nav>
 
-    </div>
+        <UserContext.Provider value="hello from context">
+          <Route path="/" exact component={Home} />
+          <Route path="/about" exact component={About} />
+        </UserContext.Provider>
+      </div>
+    </Router>
   );
 }
 
