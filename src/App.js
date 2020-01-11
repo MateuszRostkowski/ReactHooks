@@ -15,6 +15,8 @@ function useCounter(number) {
 }
 
 function App() {
+  const [value, setValue] = useState(1)
+
   return (
     <Router>
       <div>
@@ -29,7 +31,7 @@ function App() {
           </ul>
         </nav>
 
-        <UserContext.Provider value="hello from context">
+        <UserContext.Provider value={{value, setValue}}>
           <Route path="/" exact component={Home} />
           <Route path="/about" exact component={About} />
         </UserContext.Provider>

@@ -2,10 +2,14 @@ import React, { useContext } from "react"
 import { UserContext } from "../context/UserContext"
 
 function About() {
-    const msg = useContext(UserContext)
+    const {value, setValue} = useContext(UserContext)
     return (
         <div>
-            About
+            <h2>About</h2>
+           <div>{value}</div>
+           <button onClick={ () => {
+               setValue(value + 1)
+           }}>change value</button>
         </div>
     )
 }
