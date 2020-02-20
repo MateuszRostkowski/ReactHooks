@@ -138,6 +138,8 @@ export function App() {
 ```
 
 Go to the file that you want to use your context value
+
+```About.jsx```
 ```javascript
 import React, { useContext } from "react"
 import { UserContext } from "../context/UserContext"
@@ -164,3 +166,25 @@ export function About() {
     )
 }
 ```
+
+You can use context in another file
+
+```Home.jsx```
+```javascript
+import React, { useContext } from "react"
+import { UserContext } from "../context/UserContext"
+
+function Home() {
+    const { user } = useContext(UserContext)
+    return (
+        <div>
+            <h2>Home</h2>
+            <pre>{JSON.stringify(user, null, 2)}</pre>
+        </div>
+    )
+}
+
+export default Home
+```
+
+User value is changing inside ```About.jsx``` and the value inside ```Home.jsx``` is changing too
