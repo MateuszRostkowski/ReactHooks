@@ -103,3 +103,64 @@ ChatAPI.unsubscribeFromFriendStatus(300, handleStatusChange); // Clean up last e
 ## Links
 - (setInterval)[https://overreacted.io/making-setinterval-declarative-with-react-hooks/] - helps when working with timers
 - (Ben Awad)[https://www.youtube.com/watch?v=f687hBjwFcM]
+
+## useContext
+
+Create your context in ```context``` folder
+
+
+/context/UserContex.js
+```javascript
+import { createContext } from "react"
+
+export const UserContext = createContext(null);
+```
+
+Add Context Provider to the main file in project, with initial data (it could be getter and setter from )
+
+```javascript
+import React, { useState } from "react"
+import { UserContext } from "./context/UserContext";
+
+export function App() {
+  const [user, setUser] = useState(null)
+
+  return (
+    <Router>
+      <UserContext.Provider value={{ user, setUser }}>
+        <Route path="/" exact component={Home} />
+        <Route path="/about" exact component={About} />
+        <Route path="/memo" exact component={Memo} />
+      </UserContext.Provider>
+    </Router>
+  )
+}
+```
+
+Go to the file that you want to use your context value
+```javascript
+import React, { useContext } from "react"
+import { UserContext } from "../context/UserContext"
+import { login } from "../utils/login"
+
+export function About() {
+    const { user, setUser } = useContext(UserContext)
+    return (
+        <div>
+            <h2>About</h2>
+            <pre>{ JSON.stringify(user, null, 2) }</pre>
+            { user ? (
+                <button onClick={() => {
+                    setUser(null)
+                }}>logout</button>
+            ) : (
+                <button onClick={async () => {
+                    const user = await login()
+                    setUser(user)
+                }}>login</button>
+            )}
+
+        </div>
+    )
+}
+```
