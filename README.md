@@ -41,7 +41,7 @@ useEffect(() => {
 // componentDidUpdate (when there is no array as the second useEffect parameter)
 useEffect(() => {
     document.title = `You clicked ${count} times`;
-});
+}, [count]);
 
 ```
 
@@ -55,7 +55,7 @@ function Example() {
   
   useEffect(() => {
     document.title = `You clicked ${count} times`;
-  });
+  }, [count]);
 
   return (
     <div>
